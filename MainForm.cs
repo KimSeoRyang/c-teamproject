@@ -38,7 +38,27 @@ namespace TeamProjectFinal
                 btnTable.Tag = table; // 버튼에 Table 객체 정보 저장
 
                 // 다형성: table.Capacity가 하위 클래스의 값을 따름
-                btnTable.Text = $"[{table.Capacity}인석]\n{table.TableNumber}번";
+                //btnTable.Text = $"[{table.Capacity}인석]\n{table.TableNumber}번";
+                if (table.IsReserved)
+                {
+                    // 1. 현재 이 테이블(table.TableNumber)을 누가 예약했는지 찾습니다.
+                    // (DataManager.Reservations 리스트에서 검색)
+                    var reservation = DataManager.Reservations
+                        .FirstOrDefault(r => r.AssignedTableNumber == table.TableNumber);
+
+                    // 2. 예약 정보를 찾았다면 이름과 인원수를 표시합니다.
+                    if (reservation != null)
+                    {
+                        btnTable.Text = $"{table.TableNumber}번\n{reservation.CustomerName} 님\n({reservation.GuestCount}명)";
+                        btnTable.BackColor = Color.Salmon; // 예약된 색상
+                    }
+                }
+                else
+                {
+                    // 3. 예약이 없다면 기존처럼 테이블 정보를 표시합니다.
+                    btnTable.Text = $"{table.TableNumber}번\n[{table.Capacity}인석]";
+                    btnTable.BackColor = Color.LightGreen; // 빈 좌석 색상
+                }
 
                 btnTable.Width = 100;
                 btnTable.Height = 80;

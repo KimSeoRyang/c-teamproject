@@ -42,14 +42,15 @@
             // 
             // txtName
             // 
-            txtName.Location = new Point(39, 61);
+            txtName.BackColor = Color.White;
+            txtName.Location = new Point(12, 84);
             txtName.Name = "txtName";
             txtName.Size = new Size(543, 23);
             txtName.TabIndex = 0;
             // 
             // txtPhone
             // 
-            txtPhone.Location = new Point(39, 146);
+            txtPhone.Location = new Point(12, 173);
             txtPhone.Name = "txtPhone";
             txtPhone.Size = new Size(543, 23);
             txtPhone.TabIndex = 1;
@@ -57,7 +58,7 @@
             // name
             // 
             name.AutoSize = true;
-            name.Location = new Point(39, 28);
+            name.Location = new Point(12, 45);
             name.Name = "name";
             name.Size = new Size(38, 15);
             name.TabIndex = 2;
@@ -66,7 +67,7 @@
             // phone
             // 
             phone.AutoSize = true;
-            phone.Location = new Point(39, 109);
+            phone.Location = new Point(12, 134);
             phone.Name = "phone";
             phone.Size = new Size(50, 15);
             phone.TabIndex = 3;
@@ -75,7 +76,7 @@
             // guestCount
             // 
             guestCount.AutoSize = true;
-            guestCount.Location = new Point(39, 196);
+            guestCount.Location = new Point(12, 225);
             guestCount.Name = "guestCount";
             guestCount.Size = new Size(50, 15);
             guestCount.TabIndex = 4;
@@ -84,7 +85,7 @@
             // availableTables
             // 
             availableTables.AutoSize = true;
-            availableTables.Location = new Point(39, 287);
+            availableTables.Location = new Point(12, 328);
             availableTables.Name = "availableTables";
             availableTables.Size = new Size(94, 15);
             availableTables.TabIndex = 5;
@@ -92,7 +93,7 @@
             // 
             // numGuestCount
             // 
-            numGuestCount.Location = new Point(39, 236);
+            numGuestCount.Location = new Point(12, 275);
             numGuestCount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numGuestCount.Name = "numGuestCount";
             numGuestCount.Size = new Size(109, 23);
@@ -102,25 +103,27 @@
             // cmbAvailableTables
             // 
             cmbAvailableTables.FormattingEnabled = true;
-            cmbAvailableTables.Location = new Point(39, 328);
+            cmbAvailableTables.Location = new Point(12, 377);
             cmbAvailableTables.Name = "cmbAvailableTables";
             cmbAvailableTables.Size = new Size(543, 23);
             cmbAvailableTables.TabIndex = 7;
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(667, 391);
+            btnSave.Location = new Point(252, 475);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(75, 23);
             btnSave.TabIndex = 8;
-            btnSave.Text = "button1";
+            btnSave.Text = "배정하기";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // ReservationForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.Gainsboro;
+            ClientSize = new Size(570, 510);
             Controls.Add(btnSave);
             Controls.Add(cmbAvailableTables);
             Controls.Add(numGuestCount);

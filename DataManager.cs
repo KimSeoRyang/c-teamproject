@@ -44,7 +44,7 @@ namespace TeamProjectFinal
             }
 
             string json = File.ReadAllText(reservationFile);
-            Reservations = JsonSerializer.Deserialize<List<Reservation>>(json);
+            Reservations = JsonSerializer.Deserialize<List<Reservation>>(json) ?? new List<Reservation>();
 
             // 로드 후 테이블 상태 동기화
             UpdateTableStatus();

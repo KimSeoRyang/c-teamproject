@@ -41,6 +41,7 @@
             btnNewReservation.TabIndex = 0;
             btnNewReservation.Text = "신규 손님 배정";
             btnNewReservation.UseVisualStyleBackColor = true;
+            btnNewReservation.Click += btnNewReservation_Click;
             // 
             // btnShowList
             // 
@@ -69,6 +70,7 @@
             Controls.Add(btnNewReservation);
             Name = "MainForm";
             Text = "MainForm";
+            Load += MainForm_Load;
             ResumeLayout(false);
         }
 

@@ -28,44 +28,89 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvActiveList = new DataGridView();
-            btnRefresh = new Button();
-            ((System.ComponentModel.ISupportInitialize)dgvActiveList).BeginInit();
-            SuspendLayout();
+            this.dgvActiveList = new System.Windows.Forms.DataGridView();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.labelActive = new System.Windows.Forms.Label();
+            this.dgvWaitingList = new System.Windows.Forms.DataGridView();
+            this.labelWaiting = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvActiveList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvWaitingList)).BeginInit();
+            this.SuspendLayout();
             // 
             // dgvActiveList
             // 
-            dgvActiveList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvActiveList.Location = new Point(51, 60);
-            dgvActiveList.Name = "dgvActiveList";
-            dgvActiveList.Size = new Size(655, 326);
-            dgvActiveList.TabIndex = 0;
+            this.dgvActiveList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvActiveList.Location = new System.Drawing.Point(20, 40);
+            this.dgvActiveList.Name = "dgvActiveList";
+            this.dgvActiveList.ReadOnly = true;
+            this.dgvActiveList.RowTemplate.Height = 25;
+            this.dgvActiveList.Size = new System.Drawing.Size(760, 200);
+            this.dgvActiveList.TabIndex = 0;
             // 
             // btnRefresh
             // 
-            btnRefresh.Location = new Point(610, 31);
-            btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(75, 23);
-            btnRefresh.TabIndex = 1;
-            btnRefresh.Text = "button1";
-            btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Location = new System.Drawing.Point(685, 8);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(95, 26);
+            this.btnRefresh.TabIndex = 1;
+            this.btnRefresh.Text = "새로고침";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // labelActive
+            // 
+            this.labelActive.AutoSize = true;
+            this.labelActive.Location = new System.Drawing.Point(20, 15);
+            this.labelActive.Name = "labelActive";
+            this.labelActive.Size = new System.Drawing.Size(95, 15);
+            this.labelActive.TabIndex = 3;
+            this.labelActive.Text = "📝 현재 손님 목록";
+            // 
+            // dgvWaitingList
+            // 
+            this.dgvWaitingList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvWaitingList.Location = new System.Drawing.Point(20, 300);
+            this.dgvWaitingList.Name = "dgvWaitingList";
+            this.dgvWaitingList.ReadOnly = true;
+            this.dgvWaitingList.RowTemplate.Height = 25;
+            this.dgvWaitingList.Size = new System.Drawing.Size(760, 200);
+            this.dgvWaitingList.TabIndex = 4;
+            // 
+            // labelWaiting
+            // 
+            this.labelWaiting.AutoSize = true;
+            this.labelWaiting.Location = new System.Drawing.Point(20, 275);
+            this.labelWaiting.Name = "labelWaiting";
+            this.labelWaiting.Size = new System.Drawing.Size(83, 15);
+            this.labelWaiting.TabIndex = 5;
+            this.labelWaiting.Text = "⌛ 대기열 목록";
             // 
             // ActiveReservationListForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(btnRefresh);
-            Controls.Add(dgvActiveList);
-            Name = "ActiveReservationListForm";
-            Text = "ActiveReservationListForm";
-            ((System.ComponentModel.ISupportInitialize)dgvActiveList).EndInit();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 520);
+            this.Controls.Add(this.labelWaiting);
+            this.Controls.Add(this.dgvWaitingList);
+            this.Controls.Add(this.labelActive);
+            this.Controls.Add(this.btnRefresh);
+            this.Controls.Add(this.dgvActiveList);
+            this.Name = "ActiveReservationListForm";
+            this.Text = "현재 손님 및 대기열 목록";
+            this.Load += new System.EventHandler(this.ActiveReservationListForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvActiveList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvWaitingList)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
 
-        private DataGridView dgvActiveList;
-        private Button btnRefresh;
+        private System.Windows.Forms.DataGridView dgvActiveList;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Label labelActive;
+        private System.Windows.Forms.DataGridView dgvWaitingList;
+        private System.Windows.Forms.Label labelWaiting;
     }
 }

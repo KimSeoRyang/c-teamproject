@@ -15,6 +15,8 @@ namespace TeamProjectFinal
         public int AssignedTableNumber { get; set; } // 필수
         public DateTime SeatedAtTime { get; set; } // 배정된 시간
 
+        public bool IsWaiting { get; set; } = false;
+
         // GridView 표시용 (읽기 전용 속성)
         public string TableInfo { get { return $"{AssignedTableNumber}번"; } }
     }

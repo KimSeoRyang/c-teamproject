@@ -31,6 +31,9 @@ namespace TeamProjectFinal
             flpTables.Controls.Clear(); // 기존 버튼 모두 제거
             DataManager.UpdateTableStatus(); // 데이터 동기화
 
+            // [안전 장치 추가] 예약 리스트가 아직 로드되지 않았다면 빈 리스트로 간주
+            var currentReservations = DataManager.Reservations ?? new List<Reservation>();
+
             // 다형성: List<Table>을 순회하며 각 객체(Two, Four, Six)에 접근
             foreach (Table table in DataManager.Tables)
             {
@@ -43,7 +46,9 @@ namespace TeamProjectFinal
                 {
                     // 1. 현재 이 테이블(table.TableNumber)을 누가 예약했는지 찾습니다.
                     // (DataManager.Reservations 리스트에서 검색)
-                    var reservation = DataManager.Reservations
+                    //var reservation = DataManager.Reservations
+                    //.FirstOrDefault(r => r.AssignedTableNumber == table.TableNumber);
+                    var reservation = currentReservations
                         .FirstOrDefault(r => r.AssignedTableNumber == table.TableNumber);
 
                     // 2. 예약 정보를 찾았다면 이름과 인원수를 표시합니다.
@@ -109,18 +114,50 @@ namespace TeamProjectFinal
         // '신규 손님 배정' 버튼 클릭 (특정 테이블 지정 안 함)
         private void btnNewReservation_Click(object sender, EventArgs e)
         {
-            ReservationForm resForm = new ReservationForm(); // 기본 생성자
-            if (resForm.ShowDialog() == DialogResult.OK)
+            // 💡 1. 빈 테이블 확인: 1인 이상 앉을 수 있는 테이블이 있는지 확인
+            bool hasAvailableTable = DataManager.Tables.Any(t => !t.IsReserved && t.Capacity >= 1);
+
+            if (hasAvailableTable)
             {
-                RefreshTableLayout(); // 배정 완료 후 새로고침
+                // 💡 2. 빈 테이블이 있으면: ReservationForm을 열어 좌석을 선택하게 함
+                ReservationForm resForm = new ReservationForm();
+                if (resForm.ShowDialog() == DialogResult.OK)
+                {
+                    RefreshTableLayout(); // 배정 완료 후 새로고침
+                }
+            }
+            else
+            {
+                // 💡 3. 만석이면: WaitingRegistrationForm을 열어 대기열에 등록하게 함
+                MessageBox.Show("현재 모든 테이블이 사용 중입니다. 대기열에 등록합니다.", "만석", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                WaitingRegistrationForm waitingForm = new WaitingRegistrationForm();
+                if (waitingForm.ShowDialog() == DialogResult.OK)
+                {
+                    // 대기열 등록 후에도 화면을 갱신할 필요는 없지만, 리스트 확인을 위해 한 번 갱신
+                    // (대기열 등록은 메인 화면에 반영되지 않으므로, 굳이 RefreshTableLayout()은 필요 없습니다.)
+                }
             }
         }
 
         // '현재 손님 목록' 버튼 클릭
+        // [수정] 이미 열려있는 창이 있는지 확인
         private void btnShowList_Click(object sender, EventArgs e)
         {
+            // 이미 열려있는 창이 있는지 찾습니다.
+            foreach (Form openForm in Application.OpenForms)
+            {
+                if (openForm is ActiveReservationListForm)
+                {
+                    openForm.Activate(); // 이미 있으면 그 창을 맨 앞으로 가져옴
+                    return;
+                }
+            }
+
+            // 없으면 새로 만들어서 엽니다.
+            DataManager.LoadReservations();
             ActiveReservationListForm listForm = new ActiveReservationListForm();
-            listForm.ShowDialog(); // Show() 대신 ShowDialog() 사용 권장
+            listForm.Show();
         }
     }
 }
